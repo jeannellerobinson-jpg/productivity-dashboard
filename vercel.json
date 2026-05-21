@@ -3,7 +3,5 @@
   "buildCommand": "next build",
   "devCommand": "next dev",
   "installCommand": "npm install",
-  "env": {
-    "DATABASE_URL": "@database-url"
-  }
+
 }
