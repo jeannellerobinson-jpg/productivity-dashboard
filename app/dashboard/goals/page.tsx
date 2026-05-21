@@ -1,11 +1,11 @@
 import { sql } from "@/lib/db";
 import GoalsClient from "@/components/dashboard/GoalsClient";
-import type { Goal } from "@/types";
 
 async function getGoals() {
   try {
-    const goals = await sql`SELECT * FROM goals ORDER BY status ASC, created_at DESC`;
-    return goals as unknown as Goal[];
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const goals = await sql`SELECT * FROM goals ORDER BY status ASC, created_at DESC` as any[];
+    return goals;
   } catch {
     return [];
   }
@@ -13,5 +13,6 @@ async function getGoals() {
 
 export default async function GoalsPage() {
   const goals = await getGoals();
-  return <GoalsClient initialGoals={goals} />;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  return <GoalsClient initialGoals={goals as any} />;
 }
