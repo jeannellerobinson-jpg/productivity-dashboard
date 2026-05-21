@@ -1,7 +1,7 @@
 import { sql } from "@/lib/db";
 import HabitsClient from "@/components/dashboard/HabitsClient";
 
-async function getHabits() {
+export default async function HabitsPage() {
   try {
     const habits = await sql`
       SELECT h.*,
@@ -21,13 +21,8 @@ async function getHabits() {
       FROM habits h
       ORDER BY h.created_at ASC
     `;
-    return habits;
+    return <HabitsClient initialHabits={habits as any} />;
   } catch {
-    return [];
+    return <HabitsClient initialHabits={[]} />;
   }
-}
-
-export default async function HabitsPage() {
-  const habits = await getHabits();
-  return <HabitsClient initialHabits={habits} />;
 }
