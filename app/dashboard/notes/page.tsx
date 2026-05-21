@@ -1,16 +1,11 @@
 import { sql } from "@/lib/db";
 import NotesClient from "@/components/dashboard/NotesClient";
 
-async function getNotes() {
+export default async function NotesPage() {
   try {
     const notes = await sql`SELECT * FROM notes ORDER BY pinned DESC, updated_at DESC`;
-    return notes;
+    return <NotesClient initialNotes={notes as any} />;
   } catch {
-    return [];
+    return <NotesClient initialNotes={[]} />;
   }
-}
-
-export default async function NotesPage() {
-  const notes = await getNotes();
-  return <NotesClient initialNotes={notes} />;
 }
